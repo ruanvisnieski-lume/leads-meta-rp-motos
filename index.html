@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Leads Meta RP Motos</title>
+<meta name="description" content="Funil do CRM dos leads do Meta Ads da RP Motos: etapas, tempo de resposta, motivos de perda e diagnóstico.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-bg: #F3F4F6; --color-fg: #0A1628; --color-fg-muted: #566174; --color-panel: #FFFFFF; --color-border-line: #DCE1E9;
+    --color-ok: #16845B; --color-warn: #B7791F; --color-bad: #C0392B; --accent: #1E40AF; --cds-chart-muted: #9AA4B2;
+    --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --cds-font-size-caption: 13px; --cds-font-size-body: 15px; --cds-font-size-heading: 20px; --cds-font-size-title: 30px;
+    --cds-font-weight-medium: 600;
+    --cds-gap-xs: 4px; --cds-gap-sm: 8px; --cds-gap-md: 14px; --cds-gap-lg: 20px; --cds-gap-xl: 36px;
+    --cds-pad-md: 12px; --cds-pad-lg: 18px; --cds-radius: 10px;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-bg: #0A1628; --color-fg: #EEF1F6; --color-fg-muted: #A0ACBF; --color-panel: #101F38; --color-border-line: #20324F;
+      --color-ok: #3CC08F; --color-warn: #E0A63A; --color-bad: #F0776A; --accent: #6C8CF0; --cds-chart-muted: #5D6B82;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --color-bg: #0A1628; --color-fg: #EEF1F6; --color-fg-muted: #A0ACBF; --color-panel: #101F38; --color-border-line: #20324F;
+    --color-ok: #3CC08F; --color-warn: #E0A63A; --color-bad: #F0776A; --accent: #6C8CF0; --cds-chart-muted: #5D6B82;
+    color-scheme: dark;
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--color-bg); color: var(--color-fg); font-family: var(--font-sans); font-size: 14px;
+    padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+  .lm { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--cds-gap-xl); font-family: var(--font-sans); color: var(--color-fg); }
+  .lm h1 { font-family: var(--font-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+  .lm h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+  .lm h3 { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lm p { margin: 0; line-height: 1.5; }
+  .lm .lm-muted { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .lm .lm-lede { font-size: var(--cds-font-size-body); max-width: 70ch; }
+  .lm b { font-variant-numeric: tabular-nums; font-weight: var(--cds-font-weight-medium); }
+  .lm-sec { display: flex; flex-direction: column; gap: var(--cds-gap-md); }
+  .lm-filters { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); align-items: flex-end; background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-md) var(--cds-pad-lg); }
+  .lm-filters label { display: flex; flex-direction: column; gap: 4px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .lm-filters input, .lm-filters select { font: inherit; color: var(--color-fg); background: var(--color-bg); border: 1px solid var(--color-border-line); border-radius: 6px; padding: 6px 8px; min-height: 34px; }
+  .lm-filters button { font: inherit; color: var(--color-fg); background: transparent; border: 1px solid var(--color-border-line); border-radius: 6px; padding: 6px 12px; min-height: 34px; cursor: pointer; }
+  .lm-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: var(--cds-gap-md); }
+  .lm-kpi { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-xs); min-width: 0; }
+  .lm-kpi .lm-big { font-family: var(--font-serif); font-size: 40px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .lm-kpi .lm-sub { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .lm-kpi.lm-bad .lm-big { color: var(--color-bad); }
+  .lm-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-sm); min-width: 0; }
+  .lm-scroll { overflow-x: auto; }
+  .lm-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); }
+  .lm-table th { text-align: left; font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); padding: 8px 10px; border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
+  .lm-table td { padding: 9px 10px; border-bottom: 1px solid var(--color-border-line); vertical-align: middle; font-variant-numeric: tabular-nums; }
+  .lm-table th.lm-num, .lm-table td.lm-num { text-align: right; }
+  .lm-table td.lm-etapa { min-width: 190px; }
+  .lm-table td.lm-zero { color: var(--color-fg-muted); }
+  .lm-table td.lm-late { color: var(--color-bad); font-weight: var(--cds-font-weight-medium); }
+  .lm-cellbar { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+  .lm-cellbar i { display: block; height: 8px; border-radius: 3px; min-width: 2px; }
+  .lm-three { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--cds-gap-md); }
+  .lm-stat { display: flex; flex-direction: column; gap: 2px; }
+  .lm-stat .lm-statn { font-family: var(--font-serif); font-size: 34px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .lm-stat .lm-statl { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .lm-mot { display: flex; flex-direction: column; gap: 10px; }
+  .lm-mot-row { display: grid; grid-template-columns: minmax(130px, 32%) 1fr; gap: var(--cds-gap-sm); align-items: center; }
+  .lm-mot-lab { font-size: var(--cds-font-size-caption); min-width: 0; overflow-wrap: anywhere; }
+  .lm-mot-line { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .lm-mot-track { flex: 1 1 auto; min-width: 0; }
+  .lm-mot-fill { height: 24px; border-radius: 4px; min-width: 4px; }
+  .lm-mot-tot { flex: 0 0 auto; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); white-space: nowrap; }
+  .lm-mot-tot b { color: var(--color-fg); }
+  .lm-note { border-left: 3px solid var(--color-warn); padding: 2px 0 2px var(--cds-pad-md); color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); max-width: 75ch; }
+  .lm-diag { display: flex; flex-direction: column; gap: var(--cds-gap-lg); }
+  .lm-diag-core { font-family: var(--font-serif); font-size: 22px; line-height: 1.3; max-width: 52ch; text-wrap: balance; }
+  .lm-diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: var(--cds-gap-lg); }
+  .lm-erro { display: flex; flex-direction: column; gap: 4px; padding: var(--cds-pad-md) 0; border-bottom: 1px solid var(--color-border-line); }
+  .lm-erro:last-child { border-bottom: 0; }
+  .lm-erro h3 { color: var(--color-fg); }
+  .lm-erro p { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); line-height: 1.5; }
+  .lm ul.lm-list { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 8px; line-height: 1.45; }
+  [data-dash-source-state=refreshing] { opacity: .5; }
+  @media (max-width: 480px) { .lm-mot-row { grid-template-columns: 1fr; gap: 4px; } }
+
+  .lm h1, .lm h2 { font-weight: 800; letter-spacing: -0.01em; }
+  .lm-kpi .lm-big, .lm-stat .lm-statn, .lm-diag-core { font-weight: 800; }
+  .lm-diag-core { font-size: 22px; }
+  .lm-foot { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); border-top: 1px solid var(--color-border-line); padding-top: var(--cds-pad-lg); }
+  .lm-filters input:focus-visible, .lm-filters select:focus-visible, .lm-filters button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  @media (prefers-reduced-motion: no-preference) { .lm-mot-fill, .lm-cellbar i { transition: width .25s ease; } }
+</style>
+</head>
+<body>
+<div class="lm">
+  <header class="lm-sec">
+    <p class="lm-muted" id="lm-contexto">RP Motos Honda · leads do Meta Ads (Meta - ig, Meta - fb e Facebook Leads) · dados da Teia em 13/11/2026, MQL pela planilha da RP Motos</p>
+    <h1 id="lm-titulo">O que acontece com os leads do Meta no funil</h1>
+    <p class="lm-lede" id="lm-resumo-central">O funil não reflete o trabalho feito. As etapas não acompanham o contato com o lead, e a maioria dos leads fica semanas sem atualização.</p>
+  </header>
+
+  <section class="lm-sec" id="lm-filtros">
+    <div class="lm-filters">
+      <label for="f-de">Entrou de<input type="date" id="f-de" min="2026-10-22" max="2026-11-13" value="2026-10-22"></label>
+      <label for="f-ate">até<input type="date" id="f-ate" min="2026-10-22" max="2026-11-13" value="2026-11-13"></label>
+      <label for="f-quando">Dia da semana em que entrou
+        <select id="f-quando">
+          <option value="todos">Todos os dias</option>
+          <option value="semana">Segunda a quinta</option>
+          <option value="sexta">Sexta</option>
+          <option value="fim">Sábado e domingo</option>
+        </select>
+      </label>
+      <label for="f-mql">MQL (pela planilha)
+        <select id="f-mql">
+          <option value="todos">Todos os leads</option>
+          <option value="sim">Só MQL</option>
+          <option value="nao">Só não MQL</option>
+        </select>
+      </label>
+      <button type="button" id="f-limpar">Limpar filtros</button>
+    </div>
+    <p class="lm-muted" data-draw="periodo">—</p>
+    <p class="lm-muted" id="lm-mql-nota">O MQL vem da planilha de leads da RP Motos, não da Teia. Os leads foram ligados ao CRM pelo telefone e pelo e-mail.</p>
+  </section>
+
+  <section class="lm-sec" id="lm-numeros">
+    <h2 id="lm-numeros-t">Os leads em números</h2>
+    <div class="lm-kpis">
+      <div class="lm-kpi"><span class="lm-sub">Total de leads</span><b class="lm-big" data-draw="k_total" data-source="c_kpi" data-field="total" data-row="0">—</b><span class="lm-sub">que entraram no período</span></div>
+      <div class="lm-kpi"><span class="lm-sub">Com mensagem do time</span><b class="lm-big" data-draw="k_com" data-source="c_kpi" data-field="com_msg" data-row="0">—</b><span class="lm-sub">o lead respondeu em <span data-draw="k_resp" data-source="c_kpi" data-field="lead_respondeu" data-row="0">—</span></span></div>
+      <div class="lm-kpi lm-bad"><span class="lm-sub">Sem mensagem do time</span><b class="lm-big" data-draw="k_sem" data-source="c_kpi" data-field="sem_msg" data-row="0">—</b><span class="lm-sub">sem conversa salva no CRM</span></div>
+      <div class="lm-kpi"><span class="lm-sub">Perdidos</span><b class="lm-big" data-draw="k_perd" data-source="c_kpi" data-field="perdidos" data-row="0">—</b><span class="lm-sub">já saíram do funil</span></div>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="lm-funil">
+    <h2 id="lm-funil-t">Onde estão os leads, etapa por etapa</h2>
+    <p class="lm-muted">Na ordem do kanban de Vendas. "Dias parado" é a mediana de dias desde a última atualização do lead, e só aparece nas etapas em aberto.</p>
+    <div class="lm-card">
+      <div class="lm-scroll">
+        <table class="lm-table" data-source="c_funil" data-row-key="etapa">
+          <thead><tr>
+            <th data-field="etapa">Etapa</th>
+            <th class="lm-num" data-field="leads">Leads</th>
+            <th class="lm-num" data-field="com_msg">Time mandou mensagem</th>
+            <th class="lm-num" data-field="respondeu">Lead respondeu</th>
+            <th class="lm-num" data-field="sem_contato">Sem nenhum contato</th>
+            <th class="lm-num" data-field="dias_parado">Dias parado</th>
+          </tr></thead>
+          <tbody data-draw="funil_body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="lm-sec" id="lm-tempo">
+    <h2 id="lm-tempo-t">Tempo até a primeira mensagem do time</h2>
+    <div class="lm-card">
+      <div class="lm-three">
+        <div class="lm-stat"><span class="lm-statn"><b data-draw="t_med" data-source="c_tempo" data-field="mediana_min" data-row="0">—</b> min</span><span class="lm-statl">Mediana, entre os leads que receberam mensagem</span></div>
+        <div class="lm-stat"><span class="lm-statn"><b data-draw="t_1h" data-source="c_tempo" data-field="pct_ate_1h" data-row="0">—</b>%</span><span class="lm-statl">dos leads receberam a primeira mensagem em até 1 hora</span></div>
+        <div class="lm-stat"><span class="lm-statn"><b data-draw="t_sem" data-source="c_tempo" data-field="pct_sem_msg" data-row="0">—</b>%</span><span class="lm-statl">dos leads nunca receberam mensagem do time</span></div>
+      </div>
+    </div>
+    <div class="lm-card">
+      <h3 id="lm-tempo-dia-t">Pelo dia da semana em que o lead entrou</h3>
+      <div class="lm-scroll">
+        <table class="lm-table" data-source="c_tempo_dia" data-row-key="grupo">
+          <thead><tr>
+            <th data-field="grupo">Entrou em</th>
+            <th class="lm-num" data-field="leads">Leads</th>
+            <th class="lm-num" data-field="com_msg">Receberam mensagem</th>
+            <th class="lm-num" data-field="pct_com_msg">% que recebeu</th>
+            <th class="lm-num" data-field="mediana_min">Mediana (min)</th>
+          </tr></thead>
+          <tbody data-draw="tempo_dia_body"></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="lm-note">O tempo mostra só quem recebeu mensagem. Quem entra no fim de semana tem mais chance de nunca receber, e isso aparece na coluna "% que recebeu", não na mediana. Alguns tempos longos são retomadas de contato dias depois da entrada.</p>
+  </section>
+
+  <section class="lm-sec" id="lm-motivos">
+    <h2 id="lm-motivos-t">Por que os leads foram perdidos</h2>
+    <div class="lm-card"><div data-draw="motivos" data-source="c_motivos"></div></div>
+  </section>
+
+  <section class="lm-sec lm-diag" id="lm-diagnostico">
+    <h2 id="lm-diag-t">O que está acontecendo no funil</h2>
+    <p class="lm-muted" id="lm-diag-nota">Leitura escrita em 13/11/2026 sobre o período completo, de 22/10 a 13/11. Os números desta parte não mudam com os filtros.</p>
+    <p class="lm-diag-core" id="lm-diag-core">O CRM diz uma coisa sobre os leads do Meta, e os dados mostram outra. Por isso o funil não é confiável.</p>
+
+    <div class="lm-diag-grid">
+      <div class="lm-card">
+        <h3 id="lm-erros-t">O que está errado</h3>
+        <div class="lm-erro">
+          <h3>Leads que ninguém contatou</h3>
+          <p>27 leads abertos não têm nenhum contato registrado: 14 em Novo, 6 em Aguardando retorno, 6 em Cotação e 1 em Ficha recusada. No total, 61 dos 168 leads (36%) não têm mensagem do time salva. Quem entra no fim de semana sofre mais: 54% recebem mensagem, contra 70% de segunda a quinta.</p>
+        </div>
+        <div class="lm-erro">
+          <h3>Os leads mais qualificados não ficam na frente</h3>
+          <p>17 dos 86 leads MQL estão abertos sem nenhum contato (20%), contra 10 dos 82 que não são MQL (12%). Os 4 MQL em Aguardando retorno não têm mensagem nenhuma. O único negócio fechado é de um lead que não é MQL.</p>
+        </div>
+        <div class="lm-erro">
+          <h3>A etapa não acompanha o contato</h3>
+          <p>Em Novo, 23 dos 38 leads já receberam mensagem e 12 já responderam, mas seguem em Novo há cerca de 15 dias. Em Aguardando retorno, 6 dos 7 não têm contato algum, então a etapa diz que o time espera o cliente sem que ninguém tenha falado com ele. Em Cotação, só 8 dos 46 já responderam e 20 não têm mensagem do time salva.</p>
+        </div>
+        <div class="lm-erro">
+          <h3>Ninguém cobra o lead parado</h3>
+          <p>A mediana sem atualização é de 15 dias em Novo, 8 em Cotação e 7 em Aguardando retorno. Não aparece uma rotina que traga esses leads de volta.</p>
+        </div>
+        <div class="lm-erro">
+          <h3>A perda é marcada em lote e com motivo pouco confiável</h3>
+          <p>15 dos 24 perdidos que responderam ao time foram marcados como "cliente não responde nada". Dos 14 perdidos sem conversa salva, 13 foram marcados entre 8h e 10h da manhã, em apenas 5 dias, como uma limpeza da lista. Além disso, 7 das 67 perdas (10%) eram dados inválidos, spam ou duplicado.</p>
+        </div>
+        <div class="lm-erro">
+          <h3>Parte do trabalho acontece fora do CRM</h3>
+          <p>33 leads têm interação marcada, mas nenhuma conversa salva. 13 dos 32 leads sem conversa que mudaram de etapa não têm nenhuma interação registrada, às vezes vários movidos no mesmo minuto.</p>
+        </div>
+        <div class="lm-erro">
+          <h3>O que funciona</h3>
+          <p>Quando o time responde, responde rápido: a mediana é de cerca de 47 minutos. O problema não é a velocidade, é quem nunca recebe resposta e o que acontece com o lead depois.</p>
+        </div>
+      </div>
+
+      <div class="lm-sec">
+        <div class="lm-card">
+          <h3 id="lm-corrigir-t">O que corrigir, em ordem de impacto</h3>
+          <ul class="lm-list">
+            <li>Montar uma fila diária de leads sem contato, incluindo os que entraram no fim de semana.</li>
+            <li>Mudar a etapa assim que houver contato, e só com o contato registrado no CRM.</li>
+            <li>Dar prazo para Aguardando retorno e Cotação, com um follow-up automático quando o lead parar.</li>
+            <li>Marcar a perda no dia em que acontece, com o motivo certo, e revisar o uso de "cliente não responde nada".</li>
+            <li>Salvar no CRM as conversas feitas por telefone ou WhatsApp pessoal.</li>
+          </ul>
+        </div>
+        <div class="lm-card">
+          <h3 id="lm-limites-t">O que esta análise não prova</h3>
+          <ul class="lm-list">
+            <li>Só 1 dos 168 leads fechou, mas são 22 dias de dados. Em venda de moto com financiamento isso pode ser normal.</li>
+            <li>"Dias parado" usa a última atualização do lead, porque a Teia não entrega o histórico de etapas. Se algo mexer no lead sem mudar a etapa, ele parece menos parado do que está.</li>
+            <li>O kanban mostra mais de 500 cards em Novo e em Cotação contando todos os canais. Não medi se o mesmo problema vale para eles.</li>
+            <li>Nenhum lead do Meta está na etapa Em análise.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="lm-foot" id="lm-rodape">Os números são uma cópia fixa de 13/11/2026, tirada do CRM Teia. A base não tem nome, telefone nem identificador de lead. O MQL vem da planilha de leads da RP Motos.</p>
+</div>
+
+<script>
+  const DASH_DATA = { leads: [{"ent":"2026-10-22","dow":4,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":75,"dias_parado":18.1,"mql":0},{"ent":"2026-10-22","dow":4,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":15,"dias_parado":20.1,"mql":0},{"ent":"2026-10-22","dow":4,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":8.0,"mql":1},{"ent":"2026-10-22","dow":4,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":18.2,"mql":1},{"ent":"2026-10-22","dow":4,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":43,"dias_parado":21.3,"mql":1},{"ent":"2026-10-22","dow":4,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Spam, não é cliente","msg_time":1,"lead_resp":1,"inter":1,"min1":10,"dias_parado":9.2,"mql":0},{"ent":"2026-10-23","dow":5,"etapa":"Aguardando retorno do cliente - agendado","etapa_ordem":3,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":18.1,"mql":1},{"ent":"2026-10-23","dow":5,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":69,"dias_parado":18.2,"mql":0},{"ent":"2026-10-23","dow":5,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":1,"dias_parado":18.2,"mql":1},{"ent":"2026-10-23","dow":5,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":18.2,"mql":0},{"ent":"2026-10-23","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":731,"dias_parado":18.2,"mql":0},{"ent":"2026-10-23","dow":5,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":18.2,"mql":0},{"ent":"2026-10-23","dow":5,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":8.0,"mql":1},{"ent":"2026-10-24","dow":6,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":37,"dias_parado":20.1,"mql":1},{"ent":"2026-10-24","dow":6,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":15,"dias_parado":9.2,"mql":1},{"ent":"2026-10-24","dow":6,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":3018,"dias_parado":8.0,"mql":0},{"ent":"2026-10-24","dow":6,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":2488,"dias_parado":15.0,"mql":1},{"ent":"2026-10-24","dow":6,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":18.2,"mql":1},{"ent":"2026-10-24","dow":6,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":2079,"dias_parado":18.2,"mql":1},{"ent":"2026-10-25","dow":0,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":8.0,"mql":1},{"ent":"2026-10-25","dow":0,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":14.3,"mql":1},{"ent":"2026-10-25","dow":0,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":18.2,"mql":0},{"ent":"2026-10-25","dow":0,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Duplicado","msg_time":1,"lead_resp":0,"inter":1,"min1":59,"dias_parado":18.1,"mql":0},{"ent":"2026-10-25","dow":0,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":54,"dias_parado":18.2,"mql":1},{"ent":"2026-10-25","dow":0,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Dados inválidos","msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":4.2,"mql":0},{"ent":"2026-10-25","dow":0,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":37,"dias_parado":9.2,"mql":0},{"ent":"2026-10-25","dow":0,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":26,"dias_parado":18.2,"mql":1},{"ent":"2026-10-25","dow":0,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":18.9,"mql":0},{"ent":"2026-10-25","dow":0,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":1248,"dias_parado":8.0,"mql":0},{"ent":"2026-10-25","dow":0,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":17.1,"mql":0},{"ent":"2026-10-25","dow":0,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":702,"dias_parado":15.0,"mql":1},{"ent":"2026-10-25","dow":0,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":1,"lead_resp":1,"inter":1,"min1":638,"dias_parado":17.0,"mql":0},{"ent":"2026-10-25","dow":0,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":18.2,"mql":0},{"ent":"2026-10-25","dow":0,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":14.3,"mql":0},{"ent":"2026-10-25","dow":0,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":8.0,"mql":1},{"ent":"2026-10-25","dow":0,"etapa":"Ficha recusada - trabalhando CNH","etapa_ordem":6,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":9.3,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":28,"dias_parado":18.3,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":18.2,"mql":1},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":36,"dias_parado":9.2,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":9,"dias_parado":18.1,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":0,"dias_parado":18.2,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":18.2,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":357,"dias_parado":8.0,"mql":1},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":14749,"dias_parado":7.9,"mql":1},{"ent":"2026-10-26","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":0,"dias_parado":18.2,"mql":1},{"ent":"2026-10-26","dow":1,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":0,"dias_parado":18.1,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":338,"dias_parado":8.0,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":18.2,"mql":1},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":14,"dias_parado":18.2,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":18.0,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":18.2,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Ficha recusada - trabalhando CNH","etapa_ordem":6,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":16.1,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":60,"dias_parado":18.0,"mql":1},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":28,"dias_parado":15.9,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":18.0,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":17,"dias_parado":17.9,"mql":1},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":14325,"dias_parado":7.9,"mql":1},{"ent":"2026-10-26","dow":1,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":47,"dias_parado":16.2,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":7,"dias_parado":17.0,"mql":1},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":1,"lead_resp":1,"inter":1,"min1":32,"dias_parado":15.9,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Dados inválidos","msg_time":1,"lead_resp":0,"inter":1,"min1":15,"dias_parado":17.3,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":1,"lead_resp":1,"inter":1,"min1":776,"dias_parado":15.9,"mql":0},{"ent":"2026-10-26","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":17.7,"mql":1},{"ent":"2026-10-26","dow":1,"etapa":"Ficha recusada - trabalhando CNH","etapa_ordem":6,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":9.3,"mql":1},{"ent":"2026-10-27","dow":2,"etapa":"Aguardando retorno do cliente - agendado","etapa_ordem":3,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":17.3,"mql":0},{"ent":"2026-10-27","dow":2,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":26,"dias_parado":17.2,"mql":1},{"ent":"2026-10-27","dow":2,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":47,"dias_parado":16.9,"mql":1},{"ent":"2026-10-27","dow":2,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":1,"lead_resp":0,"inter":1,"min1":53,"dias_parado":17.0,"mql":0},{"ent":"2026-10-27","dow":2,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":17.1,"mql":0},{"ent":"2026-10-27","dow":2,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":1289,"dias_parado":8.0,"mql":1},{"ent":"2026-10-27","dow":2,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":12692,"dias_parado":8.0,"mql":1},{"ent":"2026-10-27","dow":2,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":26,"dias_parado":16.2,"mql":0},{"ent":"2026-10-27","dow":2,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":58,"dias_parado":16.2,"mql":1},{"ent":"2026-10-27","dow":2,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":1,"lead_resp":1,"inter":1,"min1":11,"dias_parado":15.1,"mql":0},{"ent":"2026-10-28","dow":3,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":16.3,"mql":1},{"ent":"2026-10-28","dow":3,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":11669,"dias_parado":8.0,"mql":1},{"ent":"2026-10-28","dow":3,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":1,"lead_resp":0,"inter":1,"min1":13,"dias_parado":15.9,"mql":0},{"ent":"2026-10-28","dow":3,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":55,"dias_parado":15.3,"mql":0},{"ent":"2026-10-28","dow":3,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Dados inválidos","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":10.3,"mql":1},{"ent":"2026-10-28","dow":3,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":15.9,"mql":0},{"ent":"2026-10-28","dow":3,"etapa":"Aguardando retorno do cliente - agendado","etapa_ordem":3,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":15.1,"mql":0},{"ent":"2026-10-28","dow":3,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":14.3,"mql":0},{"ent":"2026-10-29","dow":4,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":8.0,"mql":0},{"ent":"2026-10-29","dow":4,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":14.3,"mql":0},{"ent":"2026-10-29","dow":4,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":14.2,"mql":0},{"ent":"2026-10-29","dow":4,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":45,"dias_parado":14.2,"mql":1},{"ent":"2026-10-30","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":10,"dias_parado":4.0,"mql":0},{"ent":"2026-10-30","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":51,"dias_parado":14.2,"mql":1},{"ent":"2026-10-30","dow":5,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":55,"dias_parado":14.1,"mql":0},{"ent":"2026-10-30","dow":5,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":8915,"dias_parado":8.0,"mql":1},{"ent":"2026-10-30","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Assuntos internos","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":7.3,"mql":0},{"ent":"2026-10-30","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":2,"dias_parado":6.9,"mql":0},{"ent":"2026-10-30","dow":5,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":14.0,"mql":0},{"ent":"2026-10-30","dow":5,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":10.3,"mql":0},{"ent":"2026-10-30","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":7,"dias_parado":14.0,"mql":1},{"ent":"2026-10-30","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":5525,"dias_parado":8.0,"mql":1},{"ent":"2026-10-30","dow":5,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":13.9,"mql":0},{"ent":"2026-10-30","dow":5,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":25,"dias_parado":11.0,"mql":1},{"ent":"2026-10-31","dow":6,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Assuntos internos","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":7.3,"mql":1},{"ent":"2026-10-31","dow":6,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":48,"dias_parado":10.3,"mql":0},{"ent":"2026-10-31","dow":6,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":4197,"dias_parado":8.0,"mql":1},{"ent":"2026-11-05","dow":4,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":26,"dias_parado":4.1,"mql":1},{"ent":"2026-11-05","dow":4,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":22,"dias_parado":7.3,"mql":0},{"ent":"2026-11-05","dow":4,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":47,"dias_parado":4.0,"mql":1},{"ent":"2026-11-06","dow":5,"etapa":"Negócio fechado","etapa_ordem":5,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":2039,"dias_parado":1.2,"mql":0},{"ent":"2026-11-06","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":36,"dias_parado":7.3,"mql":1},{"ent":"2026-11-06","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":4.2,"mql":0},{"ent":"2026-11-06","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Assuntos internos","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":4.3,"mql":1},{"ent":"2026-11-06","dow":5,"etapa":"Aguardando retorno do cliente - agendado","etapa_ordem":3,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":7.2,"mql":1},{"ent":"2026-11-06","dow":5,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":40,"dias_parado":3.9,"mql":0},{"ent":"2026-11-06","dow":5,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":42,"dias_parado":6.9,"mql":1},{"ent":"2026-11-06","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Spam, não é cliente","msg_time":1,"lead_resp":0,"inter":1,"min1":9,"dias_parado":4.0,"mql":1},{"ent":"2026-11-06","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":57,"dias_parado":7.0,"mql":0},{"ent":"2026-11-06","dow":5,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":57,"dias_parado":4.1,"mql":1},{"ent":"2026-11-06","dow":5,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":837,"dias_parado":1.2,"mql":1},{"ent":"2026-11-06","dow":5,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":18,"dias_parado":4.0,"mql":1},{"ent":"2026-11-06","dow":5,"etapa":"Ficha recusada - trabalhando CNH","etapa_ordem":6,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":3.0,"mql":1},{"ent":"2026-11-06","dow":5,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":4.2,"mql":1},{"ent":"2026-11-07","dow":6,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":4.3,"mql":1},{"ent":"2026-11-07","dow":6,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":4.2,"mql":1},{"ent":"2026-11-07","dow":6,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Dados inválidos","msg_time":1,"lead_resp":0,"inter":1,"min1":2957,"dias_parado":2.3,"mql":1},{"ent":"2026-11-07","dow":6,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":56,"dias_parado":4.1,"mql":0},{"ent":"2026-11-07","dow":6,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":34,"dias_parado":4.3,"mql":1},{"ent":"2026-11-07","dow":6,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":1,"lead_resp":1,"inter":1,"min1":37,"dias_parado":4.0,"mql":1},{"ent":"2026-11-07","dow":6,"etapa":"Aguardando retorno do cliente - agendado","etapa_ordem":3,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":4.1,"mql":1},{"ent":"2026-11-07","dow":6,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Assuntos internos","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":4.3,"mql":0},{"ent":"2026-11-07","dow":6,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":4.3,"mql":1},{"ent":"2026-11-07","dow":6,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":4.3,"mql":0},{"ent":"2026-11-07","dow":6,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":0.2,"mql":1},{"ent":"2026-11-07","dow":6,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":2011,"dias_parado":4.3,"mql":0},{"ent":"2026-11-08","dow":0,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":47,"dias_parado":4.3,"mql":1},{"ent":"2026-11-08","dow":0,"etapa":"Ficha recusada - trabalhando CNH","etapa_ordem":6,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":4638,"dias_parado":2.0,"mql":1},{"ent":"2026-11-08","dow":0,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":5.3,"mql":0},{"ent":"2026-11-08","dow":0,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Assuntos internos","msg_time":1,"lead_resp":1,"inter":1,"min1":1724,"dias_parado":1.9,"mql":0},{"ent":"2026-11-08","dow":0,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":8,"dias_parado":3.9,"mql":0},{"ent":"2026-11-08","dow":0,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":13,"dias_parado":4.1,"mql":1},{"ent":"2026-11-08","dow":0,"etapa":"Ficha recusada - trabalhando CNH","etapa_ordem":6,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":990,"dias_parado":0.3,"mql":1},{"ent":"2026-11-08","dow":0,"etapa":"Aguardando retorno do cliente - agendado","etapa_ordem":3,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":4.1,"mql":1},{"ent":"2026-11-09","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":4.2,"mql":0},{"ent":"2026-11-09","dow":1,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":60,"dias_parado":4.0,"mql":1},{"ent":"2026-11-09","dow":1,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":50,"dias_parado":2.2,"mql":0},{"ent":"2026-11-09","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":10,"dias_parado":3.3,"mql":1},{"ent":"2026-11-09","dow":1,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":46,"dias_parado":3.2,"mql":1},{"ent":"2026-11-09","dow":1,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":714,"dias_parado":2.0,"mql":0},{"ent":"2026-11-09","dow":1,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":11,"dias_parado":3.8,"mql":1},{"ent":"2026-11-09","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Assuntos internos","msg_time":1,"lead_resp":1,"inter":1,"min1":3,"dias_parado":3.0,"mql":1},{"ent":"2026-11-09","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":865,"dias_parado":2.3,"mql":0},{"ent":"2026-11-09","dow":1,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":22,"dias_parado":3.1,"mql":1},{"ent":"2026-11-10","dow":2,"etapa":"Aguardando retorno do cliente - agendado","etapa_ordem":3,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":1.0,"mql":0},{"ent":"2026-11-10","dow":2,"etapa":"Ficha recusada - trabalhando CNH","etapa_ordem":6,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":53,"dias_parado":2.8,"mql":1},{"ent":"2026-11-10","dow":2,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":3.3,"mql":1},{"ent":"2026-11-10","dow":2,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":30,"dias_parado":3.0,"mql":0},{"ent":"2026-11-10","dow":2,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":21,"dias_parado":3.2,"mql":1},{"ent":"2026-11-10","dow":2,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":2,"dias_parado":3.2,"mql":0},{"ent":"2026-11-10","dow":2,"etapa":"Ficha recusada - trabalhando CNH","etapa_ordem":6,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":2.8,"mql":1},{"ent":"2026-11-10","dow":2,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":2,"dias_parado":2.3,"mql":0},{"ent":"2026-11-10","dow":2,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":32,"dias_parado":2.2,"mql":0},{"ent":"2026-11-10","dow":2,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":30,"dias_parado":2.2,"mql":0},{"ent":"2026-11-10","dow":2,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":1,"lead_resp":1,"inter":1,"min1":701,"dias_parado":1.9,"mql":0},{"ent":"2026-11-10","dow":2,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":0,"lead_resp":0,"inter":0,"min1":null,"dias_parado":2.7,"mql":1},{"ent":"2026-11-11","dow":3,"etapa":"Ficha recusada - trabalhando CNH","etapa_ordem":6,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":52,"dias_parado":0.3,"mql":1},{"ent":"2026-11-11","dow":3,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":1,"inter":1,"min1":668,"dias_parado":1.2,"mql":1},{"ent":"2026-11-12","dow":4,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Cliente não responde nada","msg_time":1,"lead_resp":0,"inter":1,"min1":187,"dias_parado":1.2,"mql":1},{"ent":"2026-11-12","dow":4,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":159,"dias_parado":0.3,"mql":1},{"ent":"2026-11-12","dow":4,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":9,"dias_parado":1.2,"mql":0},{"ent":"2026-11-12","dow":4,"etapa":"Cotação","etapa_ordem":4,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":1,"inter":1,"min1":38,"dias_parado":1.1,"mql":0},{"ent":"2026-11-12","dow":4,"etapa":"Negócio perdido","etapa_ordem":7,"perdido":1,"motivo":"Mudou de ideia","msg_time":0,"lead_resp":0,"inter":1,"min1":null,"dias_parado":0.2,"mql":1},{"ent":"2026-11-12","dow":4,"etapa":"Novo","etapa_ordem":1,"perdido":0,"motivo":null,"msg_time":1,"lead_resp":0,"inter":1,"min1":49,"dias_parado":0.2,"mql":1}] };
+  const DASH_DEFAULTS = { de: '2026-10-22', ate: '2026-11-13', quando: 'todos', mql: 'todos' };
+  const d3 = { max: (a, f) => (a.length ? Math.max.apply(null, a.map(f)) : undefined) };
+  const dash = (function () {
+    const calcs = {}, draws = {}, listeners = [];
+    let params = Object.assign({}, DASH_DEFAULTS);
+    function refresh() {
+      Object.keys(draws).forEach((name) => document.querySelectorAll('[data-draw="' + name + '"]').forEach((el) => draws[name](el)));
+      listeners.forEach((f) => f());
+    }
+    const api = {
+      colors: ['var(--accent)', 'var(--color-warn)', 'var(--color-ok)'],
+      params: () => params,
+      setParams: (o) => { Object.assign(params, o); refresh(); },
+      resetParams: () => { params = Object.assign({}, DASH_DEFAULTS); refresh(); },
+      data: (id) => {
+        if (calcs[id]) return { status: 'ok', data: calcs[id]() };
+        if (DASH_DATA[id]) return { status: 'ok', data: DASH_DATA[id] };
+        return { status: 'missing', data: [] };
+      },
+      calc: (id, spec) => { calcs[id] = () => spec.fn.apply(null, spec.inputs.map((i) => api.data(i).data)); },
+      draw: (name, fn) => { draws[name] = fn; },
+      onData: (fn) => { listeners.push(fn); },
+      _start: refresh,
+    };
+    return api;
+  })();
+
+  const ETAPAS = ['Novo', 'Em análise', 'Aguardando retorno do cliente - agendado', 'Cotação', 'Negócio fechado', 'Ficha recusada - trabalhando CNH', 'Negócio perdido'];
+  const enc = (s) => String(s).replace(/[%&=]/g, (c) => '%' + c.charCodeAt(0).toString(16).toUpperCase());
+  const brDate = (iso) => iso.slice(8, 10) + '/' + iso.slice(5, 7);
+
+  dash.calc('c_kpi', {
+    title: 'Leads em números',
+    description: 'Total, com e sem mensagem do time, respostas do lead e perdidos, no período e dia da semana escolhidos.',
+    inputs: ['leads'],
+    fn: (leads) => {
+      const p = dash.params();
+      const q = p.quando || 'todos';
+      const L = leads.filter((r) => (!p.mql || p.mql === 'todos' || (p.mql === 'sim' ? r.mql === 1 : r.mql === 0)) && r.ent >= (p.de || '2026-10-22') && r.ent <= (p.ate || '2026-11-13') &&
+        (q === 'todos' || (q === 'semana' && r.dow >= 1 && r.dow <= 4) || (q === 'sexta' && r.dow === 5) || (q === 'fim' && (r.dow === 0 || r.dow === 6))));
+      const com = L.filter((r) => r.msg_time).length;
+      return [{
+        total: L.length, com_msg: com, sem_msg: L.length - com,
+        lead_respondeu: L.filter((r) => r.lead_resp).length,
+        perdidos: L.filter((r) => r.perdido).length,
+      }];
+    },
+  });
+
+  dash.calc('c_funil', {
+    title: 'Funil por etapa',
+    description: 'Leads de cada etapa do kanban, no período e dia da semana escolhidos. Dias parado é a mediana de dias desde a última atualização.',
+    inputs: ['leads'],
+    fn: (leads) => {
+      const p = dash.params();
+      const q = p.quando || 'todos';
+      const nomes = ['Novo', 'Em análise', 'Aguardando retorno do cliente - agendado', 'Cotação', 'Negócio fechado', 'Ficha recusada - trabalhando CNH', 'Negócio perdido'];
+      const abertas = [1, 2, 3, 4, 6];
+      const med = (a) => { const s = a.slice().sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+      const L = leads.filter((r) => (!p.mql || p.mql === 'todos' || (p.mql === 'sim' ? r.mql === 1 : r.mql === 0)) && r.ent >= (p.de || '2026-10-22') && r.ent <= (p.ate || '2026-11-13') &&
+        (q === 'todos' || (q === 'semana' && r.dow >= 1 && r.dow <= 4) || (q === 'sexta' && r.dow === 5) || (q === 'fim' && (r.dow === 0 || r.dow === 6))));
+      return nomes.map((nome, i) => {
+        const x = L.filter((r) => r.etapa_ordem === i + 1);
+        return {
+          etapa: nome, ordem: i + 1, leads: x.length,
+          com_msg: x.filter((r) => r.msg_time).length,
+          respondeu: x.filter((r) => r.lead_resp).length,
+          sem_contato: x.filter((r) => !r.msg_time && !r.inter).length,
+          dias_parado: abertas.indexOf(i + 1) >= 0 && x.length ? Math.round(10 * med(x.map((r) => r.dias_parado))) / 10 : null,
+        };
+      });
+    },
+  });
+
+  dash.calc('c_tempo', {
+    title: 'Tempo até a primeira mensagem',
+    description: 'Mediana em minutos entre a entrada do lead e a primeira mensagem do time, entre os leads que receberam mensagem, e as taxas sobre todos os leads.',
+    inputs: ['leads'],
+    fn: (leads) => {
+      const p = dash.params();
+      const q = p.quando || 'todos';
+      const L = leads.filter((r) => (!p.mql || p.mql === 'todos' || (p.mql === 'sim' ? r.mql === 1 : r.mql === 0)) && r.ent >= (p.de || '2026-10-22') && r.ent <= (p.ate || '2026-11-13') &&
+        (q === 'todos' || (q === 'semana' && r.dow >= 1 && r.dow <= 4) || (q === 'sexta' && r.dow === 5) || (q === 'fim' && (r.dow === 0 || r.dow === 6))));
+      const m = L.filter((r) => r.min1 !== null).map((r) => r.min1).sort((a, b) => a - b);
+      const t = L.length;
+      const k = m.length >> 1;
+      const mediana = m.length ? (m.length % 2 ? m[k] : (m[k - 1] + m[k]) / 2) : null;
+      return [{
+        total: t, com_msg: m.length,
+        mediana_min: mediana === null ? null : Math.round(mediana),
+        pct_ate_1h: t ? Math.round(100 * m.filter((v) => v <= 60).length / t) : 0,
+        pct_sem_msg: t ? Math.round(100 * (t - m.length) / t) : 0,
+      }];
+    },
+  });
+
+  dash.calc('c_tempo_dia', {
+    title: 'Tempo de resposta pelo dia da semana de entrada',
+    description: 'Compara segunda a quinta, sexta e fim de semana no período escolhido: quantos receberam mensagem e a mediana em minutos.',
+    inputs: ['leads'],
+    fn: (leads) => {
+      const p = dash.params();
+      const L = leads.filter((r) => (!p.mql || p.mql === 'todos' || (p.mql === 'sim' ? r.mql === 1 : r.mql === 0)) && r.ent >= (p.de || '2026-10-22') && r.ent <= (p.ate || '2026-11-13'));
+      const med = (a) => { const s = a.slice().sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+      const grupos = [
+        ['Segunda a quinta', (d) => d >= 1 && d <= 4],
+        ['Sexta', (d) => d === 5],
+        ['Sábado e domingo', (d) => d === 0 || d === 6],
+      ];
+      return grupos.map(([nome, f], i) => {
+        const x = L.filter((r) => f(r.dow));
+        const m = x.filter((r) => r.min1 !== null).map((r) => r.min1);
+        return {
+          grupo: nome, ordem: i + 1, leads: x.length, com_msg: m.length,
+          pct_com_msg: x.length ? Math.round(100 * m.length / x.length) : 0,
+          mediana_min: m.length ? Math.round(med(m)) : null,
+        };
+      });
+    },
+  });
+
+  dash.calc('c_motivos', {
+    title: 'Motivos de perda',
+    description: 'Quantos leads perdidos por motivo, no período e dia da semana escolhidos.',
+    inputs: ['leads'],
+    fn: (leads) => {
+      const p = dash.params();
+      const q = p.quando || 'todos';
+      const L = leads.filter((r) => (!p.mql || p.mql === 'todos' || (p.mql === 'sim' ? r.mql === 1 : r.mql === 0)) && r.perdido && r.ent >= (p.de || '2026-10-22') && r.ent <= (p.ate || '2026-11-13') &&
+        (q === 'todos' || (q === 'semana' && r.dow >= 1 && r.dow <= 4) || (q === 'sexta' && r.dow === 5) || (q === 'fim' && (r.dow === 0 || r.dow === 6))));
+      const cont = {};
+      L.forEach((r) => { const k = r.motivo || 'Sem motivo informado'; cont[k] = (cont[k] || 0) + 1; });
+      return Object.keys(cont).map((k) => ({ motivo: k, leads: cont[k], pct: Math.round(100 * cont[k] / L.length) }))
+        .sort((a, b) => b.leads - a.leads);
+    },
+  });
+
+  // ---- números do topo
+  function umaLinha(id) {
+    const t = dash.data(id);
+    return t.status === 'ok' && t.data && t.data[0] ? t.data[0] : null;
+  }
+  [['k_total', 'c_kpi', 'total'], ['k_com', 'c_kpi', 'com_msg'], ['k_resp', 'c_kpi', 'lead_respondeu'], ['k_sem', 'c_kpi', 'sem_msg'], ['k_perd', 'c_kpi', 'perdidos'],
+   ['t_med', 'c_tempo', 'mediana_min'], ['t_1h', 'c_tempo', 'pct_ate_1h'], ['t_sem', 'c_tempo', 'pct_sem_msg']].forEach(([name, src, field]) => {
+    dash.draw(name, (el) => {
+      const r = umaLinha(src);
+      el.textContent = r && r[field] !== null && r[field] !== undefined ? String(r[field]) : '—';
+    });
+  });
+
+  dash.draw('periodo', (el) => {
+    const p = dash.params();
+    const q = { todos: 'todos os dias da semana', semana: 'entrada de segunda a quinta', sexta: 'entrada na sexta', fim: 'entrada no fim de semana' }[p.quando || 'todos'];
+    const m = { todos: '', sim: ' Só leads MQL.', nao: ' Só leads que não são MQL.' }[p.mql || 'todos'];
+    el.textContent = 'Mostrando leads que entraram de ' + brDate(p.de || '2026-10-22') + ' a ' + brDate(p.ate || '2026-11-13') + ', ' + q + '.' + m;
+  });
+
+  // ---- funil
+  dash.draw('funil_body', (tb) => {
+    const g = dash.data('c_funil');
+    if (g.status !== 'ok') { tb.replaceChildren(); return; }
+    const max = d3.max(g.data, (r) => r.leads) || 1;
+    const td = (txt, cls) => { const c = document.createElement('td'); if (cls) c.className = cls; c.textContent = txt; return c; };
+    tb.replaceChildren(...g.data.map((r) => {
+      const tr = document.createElement('tr');
+      tr.append(td(r.etapa, 'lm-etapa'));
+      const c = document.createElement('td'); c.className = 'lm-num';
+      const wrap = document.createElement('div'); wrap.className = 'lm-cellbar';
+      const bar = document.createElement('i');
+      bar.style.width = Math.max(2, Math.round(70 * r.leads / max)) + 'px';
+      bar.style.background = r.etapa === 'Negócio perdido' ? 'var(--cds-chart-muted)' : dash.colors[0];
+      wrap.append(bar, document.createTextNode(String(r.leads)));
+      c.append(wrap); tr.append(c);
+      tr.append(td(String(r.com_msg), 'lm-num' + (r.com_msg === 0 ? ' lm-zero' : '')));
+      tr.append(td(String(r.respondeu), 'lm-num' + (r.respondeu === 0 ? ' lm-zero' : '')));
+      tr.append(td(String(r.sem_contato), 'lm-num' + (r.sem_contato > 0 && r.etapa !== 'Negócio perdido' ? ' lm-late' : ' lm-zero')));
+      const dp = r.dias_parado;
+      tr.append(td(dp === null ? '' : String(dp).replace('.', ','), 'lm-num' + (dp !== null && dp >= 7 ? ' lm-late' : '')));
+      return tr;
+    }));
+  });
+
+  // ---- tempo por dia
+  dash.draw('tempo_dia_body', (tb) => {
+    const g = dash.data('c_tempo_dia');
+    if (g.status !== 'ok') { tb.replaceChildren(); return; }
+    const td = (txt, cls) => { const c = document.createElement('td'); if (cls) c.className = cls; c.textContent = txt; return c; };
+    tb.replaceChildren(...g.data.map((r) => {
+      const tr = document.createElement('tr');
+      tr.append(td(r.grupo, 'lm-etapa'));
+      tr.append(td(String(r.leads), 'lm-num'));
+      tr.append(td(String(r.com_msg), 'lm-num'));
+      tr.append(td(String(r.pct_com_msg), 'lm-num' + (r.pct_com_msg < 60 && r.leads > 0 ? ' lm-late' : '')));
+      tr.append(td(r.mediana_min === null ? '' : String(r.mediana_min), 'lm-num'));
+      return tr;
+    }));
+  });
+
+  // ---- motivos de perda
+  dash.draw('motivos', (el) => {
+    const g = dash.data('c_motivos');
+    if (g.status !== 'ok') { el.textContent = g.status === 'loading' ? '—' : 'Não foi possível carregar'; return; }
+    if (!g.data.length) { el.textContent = 'Nenhum lead perdido neste filtro.'; return; }
+    const max = d3.max(g.data, (r) => r.leads) || 1;
+    const wrap = document.createElement('div');
+    wrap.className = 'lm-mot';
+    wrap.setAttribute('role', 'img');
+    wrap.setAttribute('aria-label', 'Motivos de perda: ' + g.data.map((r) => r.motivo + ' ' + r.leads).join(', '));
+    g.data.forEach((r) => {
+      const row = document.createElement('div'); row.className = 'lm-mot-row';
+      const lab = document.createElement('div'); lab.className = 'lm-mot-lab'; lab.textContent = r.motivo;
+      const line = document.createElement('div'); line.className = 'lm-mot-line';
+      const track = document.createElement('div'); track.className = 'lm-mot-track';
+      const fill = document.createElement('div'); fill.className = 'lm-mot-fill';
+      fill.style.width = Math.max(2, (100 * r.leads) / max) + '%';
+      fill.style.background = dash.colors[0];
+      track.append(fill);
+      const tot = document.createElement('div'); tot.className = 'lm-mot-tot';
+      const b = document.createElement('b');
+      b.dataset.source = 'c_motivos'; b.dataset.field = 'leads'; b.dataset.where = 'motivo=' + enc(r.motivo);
+      b.textContent = String(r.leads);
+      tot.append(b, ' · ' + r.pct + '% das perdas');
+      line.append(track, tot);
+      row.append(lab, line);
+      wrap.append(row);
+    });
+    el.replaceChildren(wrap);
+  });
+
+  // ---- filtros
+  const fDe = document.getElementById('f-de');
+  const fAte = document.getElementById('f-ate');
+  const fQ = document.getElementById('f-quando');
+  const inteira = (el) => el && el.value && el.validity.valid;
+  if (fDe) fDe.addEventListener('change', () => {
+    if (!inteira(fDe)) return;
+    const upd = { de: fDe.value };
+    const ate = dash.params().ate || '2026-11-13';
+    if (fDe.value > ate) upd.ate = fDe.value;
+    dash.setParams(upd);
+  });
+  if (fAte) fAte.addEventListener('change', () => {
+    if (!inteira(fAte)) return;
+    const upd = { ate: fAte.value };
+    const de = dash.params().de || '2026-10-22';
+    if (fAte.value < de) upd.de = fAte.value;
+    dash.setParams(upd);
+  });
+  if (fQ) fQ.addEventListener('change', () => dash.setParams({ quando: fQ.value }));
+  const fM = document.getElementById('f-mql');
+  if (fM) fM.addEventListener('change', () => dash.setParams({ mql: fM.value }));
+  const lim = document.getElementById('f-limpar');
+  if (lim) lim.addEventListener('click', () => dash.resetParams());
+  dash.onData(() => {
+    const p = dash.params();
+    if (fDe && document.activeElement !== fDe) fDe.value = p.de || '2026-10-22';
+    if (fAte && document.activeElement !== fAte) fAte.value = p.ate || '2026-11-13';
+    if (fQ && document.activeElement !== fQ) fQ.value = p.quando || 'todos';
+    if (fM && document.activeElement !== fM) fM.value = p.mql || 'todos';
+  });
+
+  dash._start();
+</script>
+</body>
+</html>
